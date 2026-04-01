@@ -314,7 +314,13 @@ function calcTotals(p){
   const d = state[p];
   const incomeTotal = d.income.reduce((s,i)=>s+Number(i.amount||0),0);
   const budgetTotal = d.expenses.reduce((s,e)=>s+Number(e.budget||0),0);
-  const spentTotal  = d.expenses.reduce((s,e)=>s+Number(e.actual||0),0);
+  // If actual amount entered, use it. If paid but no actual, use budget as spent. Else 0.
+  const spentTotal = d.expenses.reduce((s,e)=>{
+    const actual = Number(e.actual||0);
+    if(actual > 0) return s + actual;
+    if(e.paid) return s + Number(e.budget||0);
+    return s;
+  },0);
   return {incomeTotal,budgetTotal,spentTotal,remaining:incomeTotal-spentTotal};
 }
 
@@ -331,7 +337,7 @@ function renderExpenses(p){
       </td>
       <td><input class="amount-input" type="number" value="${e.budget}" onchange="updateBudget('${p}','${e.id}',this.value)"/></td>
       <td><input class="amount-input" type="number" value="${e.actual}" placeholder="0.00" onchange="updateActual('${p}','${e.id}',this.value)"/></td>
-      <td><span class="status-badge ${e.paid?'paid':'unpaid'}">${e.paid?'✓ Paid':'Unpaid'}</span></td>
+      <td><span class="status-badge ${e.paid?'paid':'unpaid'}" data-status="${e.id}">${e.paid?'✓ Paid':'Unpaid'}</span></td>
       <td><button class="del-btn" onclick="deleteExpense('${p}','${e.id}')">✕</button></td>
     </tr>`).join('');
 }
@@ -343,7 +349,9 @@ function renderIncome(p){
   c.innerHTML = data.map(i=>`
     <div class="income-row">
       <div class="item-name">${i.desc}</div>
-      <input class="amount-input" type="number" value="${i.amount}" onchange="updateIncome('${p}','${i.id}',this.value)"/>
+      <input class="amount-input" type="number" value="${i.amount}" 
+        oninput="this.nextElementSibling.textContent=('R '+Number(this.value||0).toLocaleString('en-ZA',{minimumFractionDigits:2,maximumFractionDigits:2}))"
+        onchange="updateIncome('${p}','${i.id}',this.value)"/>
       <div class="income-amount">${fmt(i.amount)}</div>
       <button class="del-btn" onclick="deleteIncome('${p}','${i.id}')">✕</button>
     </div>`).join('');
@@ -398,9 +406,33 @@ function renderAll(p){
 }
 
 // Actions
-function togglePaid(p,id,v){ const e=state[p].expenses.find(x=>x.id===id); if(e){e.paid=v;saveMonth(p);renderAll(p);} }
-function updateBudget(p,id,v){ const e=state[p].expenses.find(x=>x.id===id); if(e){e.budget=parseFloat(v)||0;saveMonth(p);renderSummary(p);renderOverview();} }
-function updateActual(p,id,v){ const e=state[p].expenses.find(x=>x.id===id); if(e){e.actual=parseFloat(v)||0;saveMonth(p);renderSummary(p);renderOverview();} }
+function togglePaid(p,id,v){
+  const e=state[p].expenses.find(x=>x.id===id);
+  if(!e) return;
+  e.paid=v;
+  saveMonth(p);
+  // Update just the status badge in the DOM without re-rendering the whole table
+  const badge = document.querySelector(`[data-status="${id}"]`);
+  if(badge){ badge.className=`status-badge ${v?'paid':'unpaid'}`; badge.textContent=v?'✓ Paid':'Unpaid'; }
+  renderSummary(p);
+  renderOverview();
+}
+function updateBudget(p,id,v){
+  const e=state[p].expenses.find(x=>x.id===id);
+  if(!e) return;
+  e.budget=parseFloat(v)||0;
+  saveMonth(p);
+  renderSummary(p);
+  renderOverview();
+}
+function updateActual(p,id,v){
+  const e=state[p].expenses.find(x=>x.id===id);
+  if(!e) return;
+  e.actual=parseFloat(v)||0;
+  saveMonth(p);
+  renderSummary(p);
+  renderOverview();
+}
 function updateIncome(p,id,v){ const i=state[p].income.find(x=>x.id===id); if(i){i.amount=parseFloat(v)||0;saveMonth(p);renderIncome(p);renderSummary(p);renderOverview();} }
 function deleteExpense(p,id){ state[p].expenses=state[p].expenses.filter(e=>e.id!==id);saveMonth(p);renderAll(p); }
 function deleteIncome(p,id){ state[p].income=state[p].income.filter(i=>i.id!==id);saveMonth(p);renderIncome(p);renderSummary(p);renderOverview(); }
