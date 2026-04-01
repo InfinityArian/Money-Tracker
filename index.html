@@ -122,7 +122,7 @@ main { padding: 16px; }
 }
 .amount-input:focus { border-color: var(--text2); }
 .add-form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-top: 12px; }
-.add-form h3 { font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+.add-form h3 { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
 .form-col { display: flex; flex-direction: column; gap: 10px; }
 .form-group { display: flex; flex-direction: column; gap: 4px; }
 .form-group label { font-size: 10px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
@@ -203,7 +203,7 @@ main { padding: 16px; }
       <h3>+ Add Income</h3>
       <div class="form-col">
         <div class="form-group"><label>Description</label><input class="form-input" id="ps-inc-desc" placeholder="e.g. Event payout" /></div>
-        <div class="form-group"><label>Amount (R)</label><input class="form-input" type="number" inputmode="decimal" id="ps-inc-amt" placeholder="0.00" /></div>
+        <div class="form-group"><label>Amount (R)</label><input class="form-input" type="text" inputmode="decimal" id="ps-inc-amt" placeholder="0.00" /></div>
         <button class="add-btn add-btn-income" onclick="addIncome('ps')">Add Income</button>
       </div>
     </div>
@@ -220,7 +220,7 @@ main { padding: 16px; }
         <div class="form-group"><label>What was it?</label><input class="form-input" id="ps-log-desc" placeholder="e.g. Coke at garage" /></div>
         <div class="form-row-2">
           <div class="form-group"><label>Category</label><select class="form-select" id="ps-log-cat"></select></div>
-          <div class="form-group"><label>Amount Spent (R)</label><input class="form-input" type="number" inputmode="decimal" id="ps-log-amt" placeholder="0.00" /></div>
+          <div class="form-group"><label>Amount Spent (R)</label><input class="form-input" type="text" inputmode="decimal" id="ps-log-amt" placeholder="0.00" /></div>
         </div>
         <div class="form-group"><label>New Category (optional)</label><input class="form-input" id="ps-log-newcat" placeholder="Type to create…" /></div>
         <button class="add-btn add-btn-ps" onclick="logSpend('ps')">Log Spend</button>
@@ -234,7 +234,7 @@ main { padding: 16px; }
         <div class="form-group"><label>Description</label><input class="form-input" id="ps-exp-desc" placeholder="e.g. New staff uniform" /></div>
         <div class="form-row-2">
           <div class="form-group"><label>Category</label><select class="form-select" id="ps-exp-cat"></select></div>
-          <div class="form-group"><label>Monthly Budget (R)</label><input class="form-input" type="number" inputmode="decimal" id="ps-exp-budget" placeholder="0.00" /></div>
+          <div class="form-group"><label>Monthly Budget (R)</label><input class="form-input" type="text" inputmode="decimal" id="ps-exp-budget" placeholder="0.00" /></div>
         </div>
         <div class="form-group"><label>New Category (optional)</label><input class="form-input" id="ps-exp-newcat" placeholder="Type to create…" /></div>
         <button class="add-btn add-btn-ps" onclick="addExpense('ps')">Add Budgeted Item</button>
@@ -257,7 +257,7 @@ main { padding: 16px; }
       <h3>+ Add Income</h3>
       <div class="form-col">
         <div class="form-group"><label>Description</label><input class="form-input" id="ar-inc-desc" placeholder="e.g. Bonus" /></div>
-        <div class="form-group"><label>Amount (R)</label><input class="form-input" type="number" inputmode="decimal" id="ar-inc-amt" placeholder="0.00" /></div>
+        <div class="form-group"><label>Amount (R)</label><input class="form-input" type="text" inputmode="decimal" id="ar-inc-amt" placeholder="0.00" /></div>
         <button class="add-btn add-btn-income" onclick="addIncome('ar')">Add Income</button>
       </div>
     </div>
@@ -274,7 +274,7 @@ main { padding: 16px; }
         <div class="form-group"><label>What was it?</label><input class="form-input" id="ar-log-desc" placeholder="e.g. Date night" /></div>
         <div class="form-row-2">
           <div class="form-group"><label>Category</label><select class="form-select" id="ar-log-cat"></select></div>
-          <div class="form-group"><label>Amount Spent (R)</label><input class="form-input" type="number" inputmode="decimal" id="ar-log-amt" placeholder="0.00" /></div>
+          <div class="form-group"><label>Amount Spent (R)</label><input class="form-input" type="text" inputmode="decimal" id="ar-log-amt" placeholder="0.00" /></div>
         </div>
         <div class="form-group"><label>New Category (optional)</label><input class="form-input" id="ar-log-newcat" placeholder="Type to create…" /></div>
         <button class="add-btn add-btn-ar" onclick="logSpend('ar')">Log Spend</button>
@@ -288,7 +288,7 @@ main { padding: 16px; }
         <div class="form-group"><label>Description</label><input class="form-input" id="ar-exp-desc" placeholder="e.g. Gym membership" /></div>
         <div class="form-row-2">
           <div class="form-group"><label>Category</label><select class="form-select" id="ar-exp-cat"></select></div>
-          <div class="form-group"><label>Monthly Budget (R)</label><input class="form-input" type="number" inputmode="decimal" id="ar-exp-budget" placeholder="0.00" /></div>
+          <div class="form-group"><label>Monthly Budget (R)</label><input class="form-input" type="text" inputmode="decimal" id="ar-exp-budget" placeholder="0.00" /></div>
         </div>
         <div class="form-group"><label>New Category (optional)</label><input class="form-input" id="ar-exp-newcat" placeholder="Type to create…" /></div>
         <button class="add-btn add-btn-ar" onclick="addExpense('ar')">Add Budgeted Item</button>
@@ -327,6 +327,7 @@ main { padding: 16px; }
 <script>
 function uid(){ return Math.random().toString(36).substr(2,9); }
 function fmt(n){ return 'R'+Number(n||0).toLocaleString('en-ZA',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function parseAmt(v){ return parseFloat(String(v).replace(/[R\s]/g,'').replace(',','.')) || 0; }
 
 const DEF_PS_EXP = [
   {desc:'Insurance',category:'Operations',budget:1374},
@@ -423,15 +424,15 @@ function renderExpenses(p){
         ${e.oneOff?`
         <div class="amt-group">
           <div class="amt-label">Spent</div>
-          <input class="amount-input" type="number" inputmode="decimal" value="${e.actual||''}" placeholder="0.00" onchange="updateActual('${p}','${e.id}',this.value)"/>
+          <input class="amount-input" type="text" inputmode="decimal" value="${e.actual||''}" placeholder="0.00" onchange="updateActual('${p}','${e.id}',this.value)"/>
         </div>`:`
         <div class="amt-group">
           <div class="amt-label">Budget</div>
-          <input class="amount-input" type="number" inputmode="decimal" value="${e.budget}" onchange="updateBudget('${p}','${e.id}',this.value)"/>
+          <input class="amount-input" type="text" inputmode="decimal" value="${e.budget}" onchange="updateBudget('${p}','${e.id}',this.value)"/>
         </div>
         <div class="amt-group">
           <div class="amt-label">Actual</div>
-          <input class="amount-input" type="number" inputmode="decimal" value="${e.actual||''}" placeholder="0.00" onchange="updateActual('${p}','${e.id}',this.value)"/>
+          <input class="amount-input" type="text" inputmode="decimal" value="${e.actual||''}" placeholder="0.00" onchange="updateActual('${p}','${e.id}',this.value)"/>
         </div>`}
       </div>
     </div>`).join('');
@@ -444,8 +445,8 @@ function renderIncome(p){
   el.innerHTML=data.map(i=>`
     <div class="income-row">
       <div class="income-name">${i.desc}</div>
-      <input class="income-input" type="number" inputmode="decimal" value="${i.amount}"
-        oninput="this.nextElementSibling.textContent=('R'+Number(this.value||0).toLocaleString('en-ZA',{minimumFractionDigits:2,maximumFractionDigits:2}))"
+      <input class="income-input" type="text" inputmode="decimal" value="${i.amount}"
+        oninput="this.nextElementSibling.textContent=('R'+Number(String(this.value).replace(/[R\\s]/g,'').replace(',','.'))||0).toLocaleString('en-ZA',{minimumFractionDigits:2,maximumFractionDigits:2})"
         onchange="updateIncome('${p}','${i.id}',this.value)"/>
       <div class="income-amount">${fmt(i.amount)}</div>
       <button class="del-btn" onclick="deleteIncome('${p}','${i.id}')">✕</button>
@@ -505,22 +506,22 @@ function togglePaid(p,id,v){
 }
 function updateBudget(p,id,v){
   const e=state[p].expenses.find(x=>x.id===id); if(!e) return;
-  e.budget=parseFloat(v)||0; saveMonth(p); renderSummary(p); renderOverview();
+  e.budget=parseAmt(v); saveMonth(p); renderSummary(p); renderOverview();
 }
 function updateActual(p,id,v){
   const e=state[p].expenses.find(x=>x.id===id); if(!e) return;
-  e.actual=parseFloat(v)||0; saveMonth(p); renderSummary(p); renderOverview();
+  e.actual=parseAmt(v); saveMonth(p); renderSummary(p); renderOverview();
 }
 function updateIncome(p,id,v){
   const i=state[p].income.find(x=>x.id===id); if(!i) return;
-  i.amount=parseFloat(v)||0; saveMonth(p); renderIncome(p); renderSummary(p); renderOverview();
+  i.amount=parseAmt(v); saveMonth(p); renderIncome(p); renderSummary(p); renderOverview();
 }
 function deleteExpense(p,id){ state[p].expenses=state[p].expenses.filter(e=>e.id!==id);saveMonth(p);renderAll(p); }
 function deleteIncome(p,id){ state[p].income=state[p].income.filter(i=>i.id!==id);saveMonth(p);renderIncome(p);renderSummary(p);renderOverview(); }
 
 function addIncome(p){
   const d=document.getElementById(`${p}-inc-desc`).value.trim();
-  const a=parseFloat(document.getElementById(`${p}-inc-amt`).value)||0;
+  const a=parseAmt(document.getElementById(`${p}-inc-amt`).value);
   if(!d){toast('Enter a description');return;}
   state[p].income.push({id:uid(),desc:d,amount:a});
   saveMonth(p);
@@ -532,7 +533,7 @@ function addIncome(p){
 
 function logSpend(p){
   const d=document.getElementById(`${p}-log-desc`).value.trim();
-  const a=parseFloat(document.getElementById(`${p}-log-amt`).value)||0;
+  const a=parseAmt(document.getElementById(`${p}-log-amt`).value);
   let cat=document.getElementById(`${p}-log-cat`).value;
   const newCat=document.getElementById(`${p}-log-newcat`).value.trim();
   if(!d){toast('Enter a description');return;}
@@ -551,7 +552,7 @@ function logSpend(p){
 
 function addExpense(p){
   const d=document.getElementById(`${p}-exp-desc`).value.trim();
-  const b=parseFloat(document.getElementById(`${p}-exp-budget`).value)||0;
+  const b=parseAmt(document.getElementById(`${p}-exp-budget`).value);
   let cat=document.getElementById(`${p}-exp-cat`).value;
   const newCat=document.getElementById(`${p}-exp-newcat`).value.trim();
   if(!d){toast('Enter a description');return;}
